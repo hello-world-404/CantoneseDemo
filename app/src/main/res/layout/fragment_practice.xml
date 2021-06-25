@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/black"
+    tools:context=".fragment.PracticeFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white"
+                app:cardCornerRadius="20dp">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Practice"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:paddingLeft="20dp"
+                    android:textSize="44sp"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <ImageButton
+                android:layout_marginLeft="2dp"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:src="@drawable/ic_baseline_add_circle_outline_24"
+                android:background="@drawable/round"
+                android:tint="@color/black"/>
+
+        </LinearLayout>
+
+        <Button
+            android:background="@drawable/round"
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
+            android:text="Words"
+            android:gravity="left"
+            android:textAllCaps="false"
+            android:textSize="75sp"
+            android:layout_marginTop="2dp"
+            android:paddingLeft="16dp"/>
+
+        <Button
+            android:background="@drawable/round"
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
+            android:layout_weight="1"
+            android:textSize="75sp"
+            android:gravity="left"
+            android:textAllCaps="false"
+            android:text="Sentences"
+            android:paddingLeft="16dp"
+            android:layout_margin="2dp"/>
+    </LinearLayout>
+</FrameLayout>
