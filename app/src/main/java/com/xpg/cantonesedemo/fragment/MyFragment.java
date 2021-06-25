@@ -1,14 +1,31 @@
 package com.xpg.cantonesedemo.fragment;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.usage.UsageStats;
+import android.app.usage.UsageStatsManager;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.xpg.cantonesedemo.R;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,7 +77,76 @@ public class MyFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_my, container, false);
+        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+
+        //TODO: Proficiency, Words Learned
+        //TODO: Words learned logic, not right. 
+
+        //Read total time
+        String curTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
+        String stTime = sharedPref.getString("stTime", "");
+
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+
+        try {
+            Date st = sdf.parse(stTime);
+            Date cur = sdf.parse(curTime);
+
+            long dTime = cur.getTime() - st.getTime();
+
+            long diffhour = (dTime / (1000 * 60 * 60)) % 24;
+            long diffMin = (dTime / (1000 * 60)) % 60;
+            long diffSec = (dTime / 1000) % 60;
+
+            String res = "Time " + diffhour + " Hours " + diffMin + " Minutes " + diffSec + " Seconds";
+
+            TextView textView = view.findViewById(R.id.textView7);
+            textView.setText(res);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        //Read username from shared prefs
+        String username = sharedPref.getString("username", "username");
+
+        TextView textView = view.findViewById(R.id.textView4);
+        textView.setText(username);
+
+
+        //Set change for username
+        CardView usernameCV = view.findViewById(R.id.usernameCard);
+        usernameCV.setOnClickListener(v -> {
+            LayoutInflater layoutInflater = LayoutInflater.from(view.getContext());
+            View customView = layoutInflater.inflate(R.layout.username_dialog, null);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+            builder.setView(customView);
+
+            final EditText usernameET = customView.findViewById(R.id.usernameET);
+
+            builder.setTitle("Set username")
+                    .setCancelable(false)
+                    .setPositiveButton("Set", (dialog, which) -> {
+                        String newUsername = usernameET.getText().toString();
+                        if (newUsername.equals("")) {
+                            usernameET.setError("Empty");
+                        } else {
+                            //Put new username in shared pref
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putString("username", newUsername);
+                            editor.apply();
+
+                            textView.setText(newUsername);
+                        }
+                    })
+                    .setNegativeButton("Dismiss", (dialog, which) -> dialog.dismiss());
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        });
+        return view;
     }
 }

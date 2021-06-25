@@ -17,23 +17,24 @@ public class ListActivity extends AppCompatActivity {
 
     final ArrayList<String> data = new ArrayList<>();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        data.add("Hsinchu");
-        data.add("Chiayi");
-        data.add("Taitung");
-        data.add("Miaoli");
+        data.add("Most used words");
+        data.add("Colors");
+        data.add("Numbers");
+        data.add("Household items");
 
         ListView listView = findViewById(R.id.listview);
         listView.setAdapter(new ArrayAdapter(this, R.layout.list_item, R.id.idlayu, data));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startActivity(new Intent(ListActivity.this, PracticeActivity.class));
+                Intent intent = new Intent(ListActivity.this, PracticeActivity.class);
+                intent.putExtra("practiceList", data.get(position));
+                startActivity(intent);
             }
         });
     }
