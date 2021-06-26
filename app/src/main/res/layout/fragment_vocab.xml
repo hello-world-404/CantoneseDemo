@@ -4,4 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.VocabFragment"
-    android:background="@color/black"/>
+    android:background="@color/black">
+
+
+    <ListView
+        android:id="@+id/vocabList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</FrameLayout>

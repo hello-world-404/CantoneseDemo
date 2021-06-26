@@ -14,16 +14,25 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class PracticeActivity extends AppCompatActivity {
 
     private int index = 0;
     ArrayList<String> wordList = new ArrayList<>();
     ArrayList<String> jyutList = new ArrayList<>();
+
+    ArrayList<String> vocabList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +118,9 @@ public class PracticeActivity extends AppCompatActivity {
             }
             else{
                 ansBox.setBackground(ContextCompat.getDrawable(this,R.drawable.round_red));
+
+                //Add data into vocab set for further reference
+                vocabList.add(wordList.get(index));
             }
         }
     }
@@ -129,6 +141,34 @@ public class PracticeActivity extends AppCompatActivity {
                 wordList.add(wd);
                 jyutList.add(jp);
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void writeData() throws IOException {
+        File f = new File(getFilesDir(), "data.txt");
+
+        if (!f.exists()){
+            f.createNewFile();
+        }
+
+        FileOutputStream fis = openFileOutput(f.getName(), MODE_PRIVATE);
+        OutputStreamWriter osw = new OutputStreamWriter(fis, StandardCharsets.UTF_8);
+
+        for (String s: vocabList
+             ) {
+            osw.write(s + "\n");
+        }
+        osw.close();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i("Activity ", "Activity destroyed");
+        try {
+            writeData();
         } catch (IOException e) {
             e.printStackTrace();
         }

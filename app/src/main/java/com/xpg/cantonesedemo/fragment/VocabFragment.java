@@ -1,14 +1,35 @@
 package com.xpg.cantonesedemo.fragment;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
+import com.xpg.cantonesedemo.ListActivity;
+import com.xpg.cantonesedemo.PracticeActivity;
 import com.xpg.cantonesedemo.R;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Array;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +37,8 @@ import com.xpg.cantonesedemo.R;
  * create an instance of this fragment.
  */
 public class VocabFragment extends Fragment {
+
+    ArrayList<String> data = new ArrayList<>();
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,7 +83,39 @@ public class VocabFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_vocab, container, false);
+        View view = inflater.inflate(R.layout.fragment_vocab, container, false);
+
+        try {
+            readData();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        ListView listView = view.findViewById(R.id.vocabList);
+        ArrayAdapter adapter = new ArrayAdapter(view.getContext(), R.layout.vocab_list_item, R.id.vocabTV, data);
+        listView.setAdapter(adapter);
+
+        return view;
+    }
+
+    public void readData() throws IOException {
+        File f = new File(getActivity().getFilesDir(), "data.txt");
+
+        if (!f.exists()){
+            f.createNewFile();
+        }
+
+        FileInputStream fis = getContext().openFileInput(f.getName());
+        InputStreamReader inputStreamReader =
+                new InputStreamReader(fis, StandardCharsets.UTF_8);
+        try (BufferedReader reader = new BufferedReader(inputStreamReader)) {
+            String line = reader.readLine();
+            while (line != null) {
+                data.add(line);
+                line = reader.readLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

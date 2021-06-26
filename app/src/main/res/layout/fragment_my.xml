@@ -67,6 +67,7 @@
                 android:layout_weight="15"
                 android:elevation="0dp"
                 android:backgroundTint="@color/white"
+                android:id="@+id/avatarCard"
                 app:cardCornerRadius="25dp">
 
                 <ImageView

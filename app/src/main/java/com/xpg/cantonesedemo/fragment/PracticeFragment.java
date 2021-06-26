@@ -66,12 +66,7 @@ public class PracticeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_practice, container, false);
         Button btn = view.findViewById(R.id.button);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), ListActivity.class));
-            }
-        });
+        btn.setOnClickListener(v -> startActivity(new Intent(getActivity(), ListActivity.class)));
 
         return view;
     }

@@ -6,20 +6,28 @@ import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xpg.cantonesedemo.R;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -82,7 +90,21 @@ public class MyFragment extends Fragment {
         SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
 
         //TODO: Proficiency, Words Learned
-        //TODO: Words learned logic, not right. 
+        //TODO: Words learned logic, not right.
+
+        //Load user avatar
+        File imgf = new File(getContext().getFilesDir(), "avatar.png");
+        if (imgf.exists()){
+            Bitmap b = null;
+            try {
+                b = BitmapFactory.decodeStream(new FileInputStream(imgf));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            ImageView imageView = view.findViewById(R.id.imageView);
+            imageView.setImageBitmap(b);
+        }
+
 
         //Read total time
         String curTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
@@ -145,8 +167,17 @@ public class MyFragment extends Fragment {
                     .setNegativeButton("Dismiss", (dialog, which) -> dialog.dismiss());
 
             AlertDialog dialog = builder.create();
+            dialog.getWindow().setBackgroundDrawable(ContextCompat.getDrawable(view.getContext(),R.drawable.round));
             dialog.show();
         });
+
+        CardView avatarCard = view.findViewById(R.id.avatarCard);
+        avatarCard.setOnClickListener(v -> {
+            Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+            photoPickerIntent.setType("image/*");
+            startActivityForResult(photoPickerIntent, 1);
+        });
+
         return view;
     }
 }
