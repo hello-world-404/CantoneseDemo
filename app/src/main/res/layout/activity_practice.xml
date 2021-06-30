@@ -34,9 +34,13 @@
                 android:layout_width="match_parent"
                 android:textAlignment="center"
                 android:padding="50dp"
-                android:paddingTop="100dp"
-                android:textSize="44sp"
+                android:paddingTop="140dp"
+                android:autoSizeMaxTextSize="160sp"
                 android:maxLines="1"
+                android:textSize="160sp"
+                android:autoSizeMinTextSize="120sp"
+                android:autoSizeTextType="uniform"
+                android:autoSizeStepGranularity="2sp"
                 android:textColor="@color/black"
                 android:layout_height="match_parent" />
 
@@ -48,6 +52,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="2dp"
             android:layout_weight="1.8"
+            android:maxLines="1"
             android:background="@drawable/round"
             android:hint="Type something here..."
             android:padding="15dp" />

@@ -23,9 +23,10 @@ public class ListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list);
 
         data.add("Most used words");
-        data.add("Colors");
-        data.add("Numbers");
-        data.add("Household items");
+        data.add("Time");
+        data.add("Animal and plants");
+        data.add("Transportation");
+        data.add("Work");
 
         ListView listView = findViewById(R.id.listview);
         listView.setAdapter(new ArrayAdapter(this, R.layout.list_item, R.id.idlayu, data));

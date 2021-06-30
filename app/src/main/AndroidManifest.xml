@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.xpg.cantonesedemo">
 
-    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
 
     <application
@@ -13,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
-        <activity android:name=".PracticeActivity"></activity>
+        <activity android:name=".TranslateActivity"></activity>
+        <activity android:name=".PracticeActivity" />
         <activity android:name=".ListActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
