@@ -42,6 +42,7 @@ public class TranslateActivity extends AppCompatActivity {
                 tv = tv.replace('给', '畀');
                 tv = tv.replace('骗', '呃');
                 tv = tv.replace('对', '啱');
+                tv = tv.replace("回家", "返屋企");
 
                 //Re set the text
                 resultTV.setText(tv);
