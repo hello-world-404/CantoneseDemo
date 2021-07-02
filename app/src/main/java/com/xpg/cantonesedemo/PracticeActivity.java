@@ -56,12 +56,15 @@ public class PracticeActivity extends AppCompatActivity {
     public void inflatePracticeData(String d){
         if ("Most used words".equals(d)) {
             readData(R.raw.most_used);
-        } else if ("Colors".equals(d)) {
-            readData(R.raw.colors);
-        } else if ("Numbers".equals(d)) {
-            readData(R.raw.numbers);
-        } else if ("Household items".equals(d)) {
-            readData(R.raw.household_items);
+        } else if ("Time".equals(d)) {
+            readData(R.raw.time);
+        } else if ("Animal and plants".equals(d)) {
+            readData(R.raw.animal);
+        } else if ("Transportation".equals(d)) {
+            readData(R.raw.transportation);
+        }
+        else if ("Work".equals(d)){
+            readData(R.raw.work);
         }
     }
 

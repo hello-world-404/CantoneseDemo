@@ -3,6 +3,8 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://jitpack.io' }
+        maven { url "https://google.bintray.com/flexbox-layout" }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.2.1"
@@ -16,6 +18,8 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://jitpack.io' }
+        maven { url "https://google.bintray.com/flexbox-layout" }
     }
 }
 
